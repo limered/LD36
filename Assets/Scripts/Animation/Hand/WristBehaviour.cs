@@ -26,8 +26,8 @@ namespace Assets.Scripts.Animation.Hand
         private void MoveWrist(float value)
         {
             _currentRotation = Mathf.Clamp(_currentRotation + value, MinValue, MaxValue);
-            var currRot = transform.rotation.eulerAngles;
-            transform.rotation = Quaternion.Euler(currRot.x, currRot.y, _currentRotation);
+            var currRot = transform.localRotation.eulerAngles;
+            transform.localRotation = Quaternion.Euler(currRot.x, currRot.y, _currentRotation);
         }
     }
 }
