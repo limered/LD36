@@ -9,22 +9,23 @@ using UniRx.Triggers;
 public class InflameableByFire : MonoBehaviour
 {
     public float timeUntilStartsBurning = 3f;
+    public int minFireCount = 1;
+    public bool firesMultiply = false;
     private float timeUnderFire = 0f;
 
+    public int InRangeOfFireCount { get { return onFireBy.Count; } }
     private readonly List<Collider> onFireBy = new List<Collider>();
     private int fireLayer;
-    private Fuel fuel;
-    private CompositeDisposable burningStatusDisposable = new CompositeDisposable();
+    private readonly CompositeDisposable burningStatusDisposable = new CompositeDisposable();
 
     void Start()
     {
-        fuel = GetComponent<Fuel>();
         fireLayer = LayerMask.NameToLayer("Fire");
     }
 
     private void StartBurning()
     {
-        if (!burningStatusDisposable.Any())
+        if (!burningStatusDisposable.Any() && !GetComponent<IsBurning>())
         {
             Debug.Log("start burning");
 
@@ -37,9 +38,9 @@ public class InflameableByFire : MonoBehaviour
 
     void Update()
     {
-        if (onFireBy.Any())
+        if (onFireBy.Count >= minFireCount)
         {
-            timeUnderFire += Time.deltaTime;
+            timeUnderFire += Time.deltaTime * (firesMultiply ? onFireBy.Count : 1);
 
             if (timeUnderFire >= timeUntilStartsBurning)
             {
