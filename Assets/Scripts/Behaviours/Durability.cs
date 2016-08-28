@@ -18,8 +18,8 @@ public class Durability : MonoBehaviour {
 
         if (debugShowHealth)
         {
-            var textMesh = gameObject.AddHoverText(Color.white, 2f);
-            health.Subscribe(f => textMesh.text = f.ToString("#") + " / " + initialHealth).AddTo(this);
+            var textMesh = gameObject.AddHoverText(Color.white, 4f);
+            health.Subscribe(f => textMesh.text = f.ToString("#.00") + " / " + initialHealth).AddTo(this);
         }
     }
 
