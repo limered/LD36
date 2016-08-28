@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bb57e13e3aba4d24984c928b46f394bd
-timeCreated: 1472321399
+guid: 8fd2ab729bc416c4d93102435064afdf
+timeCreated: 1472381568
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,9 +9,9 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Holz00
+    4300000: FlintStone00
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -34,7 +34,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

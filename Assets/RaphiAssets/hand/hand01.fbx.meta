@@ -1,17 +1,73 @@
 fileFormatVersion: 2
-guid: bb57e13e3aba4d24984c928b46f394bd
-timeCreated: 1472321399
+guid: bf7ff17fe1d24d641aad8b3f3bbf961d
+timeCreated: 1472386387
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Holz00
+    100000: Armature
+    100002: Bone
+    100004: Bone.001
+    100006: Bone.002
+    100008: Bone.003
+    100010: Bone.004
+    100012: Bone.005
+    100014: Bone.006
+    100016: Bone.007
+    100018: Bone.008
+    100020: Bone.009
+    100022: Bone.010
+    100024: Bone.011
+    100026: Bone.012
+    100028: Bone.013
+    100030: Bone.013_end
+    100032: Bone.014
+    100034: Bone.014_end
+    100036: Bone.015
+    100038: Bone.015_end
+    100040: Bone.016
+    100042: Bone.016_end
+    100044: Bone.017
+    100046: Bone.018
+    100048: Bone.019
+    100050: Bone.019_end
+    100052: Bone.020
+    100054: //RootNode
+    100056: hand01
+    400000: Armature
+    400002: Bone
+    400004: Bone.001
+    400006: Bone.002
+    400008: Bone.003
+    400010: Bone.004
+    400012: Bone.005
+    400014: Bone.006
+    400016: Bone.007
+    400018: Bone.008
+    400020: Bone.009
+    400022: Bone.010
+    400024: Bone.011
+    400026: Bone.012
+    400028: Bone.013
+    400030: Bone.013_end
+    400032: Bone.014
+    400034: Bone.014_end
+    400036: Bone.015
+    400038: Bone.015_end
+    400040: Bone.016
+    400042: Bone.016_end
+    400044: Bone.017
+    400046: Bone.018
+    400048: Bone.019
+    400050: Bone.019_end
+    400052: Bone.020
+    400054: //RootNode
+    400056: hand01
+    4300000: hand01
+    9500000: //RootNode
+    13700000: hand01
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -34,7 +90,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -68,7 +124,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

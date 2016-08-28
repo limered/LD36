@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bb57e13e3aba4d24984c928b46f394bd
-timeCreated: 1472321399
+guid: 2b52a6f71a0f500408388c59d70905b0
+timeCreated: 1472388186
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -11,7 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: Holz00
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -34,7 +34,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
