@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.GameComponents
 {
-    public class Grababble : MonoBehaviour
+    public class FingertipBehaviour : MonoBehaviour
     {
     }
 }

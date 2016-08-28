@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UnityEngine;
 
 namespace Assets.Scripts.Animation.Hand
 {
@@ -7,12 +8,13 @@ namespace Assets.Scripts.Animation.Hand
 
         public GameObject TargetTight;
         public GameObject TargetLoose;
-        public bool IsTighten;
+        public BoolReactiveProperty IsTighten = new BoolReactiveProperty(false);
         public KeyCode ButtonToPress;
     
         void Update ()
         {
-            transform.position = ButtonToPress.IsPressed() ? TargetTight.transform.position : TargetLoose.transform.position;
+            IsTighten.Value = ButtonToPress.IsPressed();
+            transform.position = IsTighten.Value ? TargetTight.transform.position : TargetLoose.transform.position;
         }
     }
 }
