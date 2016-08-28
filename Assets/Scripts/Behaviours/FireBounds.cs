@@ -54,7 +54,19 @@ public class FireBounds : MonoBehaviour
 
     private Bounds CalcBounds()
     {
-        return GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
+        var meshFilter = GetComponentInChildren<MeshFilter>();
+        if (meshFilter)
+        {
+            return meshFilter.sharedMesh.bounds;
+        }
+
+        var collider = GetComponent<Collider>();
+        if (collider)
+        {
+            return collider.bounds;
+        }
+
+        return new Bounds(Vector3.zero, Vector3.one);
     }
 
 

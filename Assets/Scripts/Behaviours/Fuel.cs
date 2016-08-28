@@ -22,7 +22,7 @@ public class Fuel : MonoBehaviour
         if (debugShowFuel)
         {
             var textMesh = gameObject.AddHoverText(Color.yellow);
-            fuel.Subscribe(f => textMesh.text = f.ToString("#") + " / " + initialFuel).AddTo(this);
+            fuel.Subscribe(f => textMesh.text = f.ToString("#.00") + " / " + initialFuel).AddTo(this);
         }
     }
 
