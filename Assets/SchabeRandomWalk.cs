@@ -25,6 +25,12 @@ public class SchabeRandomWalk : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+
+        if(!ableToWalk())
+        {
+            return;
+        }
+
         float t = Time.fixedTime % (secondsPerTarget + targetTimeNoise);
 
         if (t < 0.01)
@@ -51,7 +57,7 @@ public class SchabeRandomWalk : MonoBehaviour {
 
         float tmp = (Vector3.Dot(transform.rotation * -Vector3.right, direction) * 0.5f + 0.5f);
 
-        if (tmp < 0.125f)
+        if (tmp < 0.05f)
         {
             setTarget();
         }
@@ -75,5 +81,12 @@ public class SchabeRandomWalk : MonoBehaviour {
 
         direction = direction / length;
         rigidBody.AddForce(direction * maxForce);
+    }
+
+    bool ableToWalk()
+    {
+        float result = Vector3.Dot(Vector3.up, transform.rotation * Vector3.up);
+
+        return result > 0.75f;
     }
 }
