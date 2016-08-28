@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UniRx;
-using UniRx.Triggers;
+﻿using UniRx;
 using UnityEngine;
 
 public class Fuel : MonoBehaviour
