@@ -12,6 +12,7 @@ namespace Assets.Scripts.GameComponents
     {
         private int _isGrabbing;
         private List<FixedJoint> _compJoints = new List<FixedJoint>();
+        private List<int> _alreadyConnectedObjects = new List<int>();
 
         private void Start()
         {
@@ -25,7 +26,6 @@ namespace Assets.Scripts.GameComponents
             foreach (var coll in colliders)
             {
                 coll.OnCollisionEnterAsObservable()
-                    .Where(c => c.gameObject.GetComponent<Grababble>() != null)
                     .Subscribe(CollisionHandling)
                     .AddTo(this);
             }
@@ -57,12 +57,21 @@ namespace Assets.Scripts.GameComponents
 
         private void CollisionHandling(Collision collision)
         {
-            if (_isGrabbing < 2 || !collision.contacts.Any()) return;
+            if (_isGrabbing < 2 || !collision.contacts.Any() || _alreadyConnectedObjects.Any()) return;
 
             var thisGo = collision.contacts[0].thisCollider.gameObject;
             var otherGo = collision.contacts[0].otherCollider.gameObject;
 
-            var comp = otherGo.AddComponent<FixedJoint>();
+            if (_alreadyConnectedObjects.Contains(otherGo.GetInstanceID())) return;
+            _alreadyConnectedObjects.Add(otherGo.GetInstanceID());
+
+            var otherGrabbable = otherGo.GetComponent<Grababble>();
+            if (otherGrabbable == null) return;
+
+            var comp = (otherGrabbable.ObjectToLink == null)
+                ? otherGo.AddComponent<FixedJoint>()
+                : otherGrabbable.ObjectToLink.AddComponent<FixedJoint>();
+
             comp.connectedBody = thisGo.GetComponent<Rigidbody>();
 
             _compJoints.Add(comp);
@@ -75,6 +84,7 @@ namespace Assets.Scripts.GameComponents
                 Destroy(joint);
             }
             _compJoints.Clear();
+            _alreadyConnectedObjects.Clear();
         }
     }
 }

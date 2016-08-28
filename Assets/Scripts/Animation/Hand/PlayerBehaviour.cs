@@ -23,7 +23,7 @@ namespace Assets.Scripts.Animation.Hand
             var vertical = Input.GetMouseButton(1);
 
             var force = (vertical)
-                ? new Vector3(0, mouseY, -mouseX)
+                ? new Vector3(0, -mouseY, -mouseX)
                 : new Vector3(mouseY, 0, -mouseX);
 
             _body.AddForce(force);

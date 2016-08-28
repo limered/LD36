@@ -20,7 +20,7 @@ namespace Assets.Scripts.Animation.Hand
         {
             if (!Input.GetMouseButton(0)) return;
             var mouseD = Input.GetAxis("Mouse Y");
-            MoveWrist(mouseD * Speed);
+            MoveWrist(-mouseD * Speed);
         }
 
         private void MoveWrist(float value)
