@@ -4,23 +4,23 @@ using UnityEngine;
 public class Durability : MonoBehaviour {
 
     public float initialHealth = 10f;
+    public bool debugShowHealth = false;
+
     private FloatReactiveProperty health;
     public IObservable<float> OnHealthtChanges() { return health; }
-    private Subject<Unit> onBreak;
 
-    /// <summary>
-    /// fires <b>OnCompleted</b> after health is set to 0
-    /// </summary>
-    public IObservable<Unit> OnBreak()
-    {
-        return onBreak ?? (onBreak = new Subject<Unit>());
-    }
     private bool isBroken = false;
     public bool IsBroken { get { return isBroken; } }
 
     void Awake()
     {
         health = new FloatReactiveProperty(initialHealth);
+
+        if (debugShowHealth)
+        {
+            var textMesh = gameObject.AddHoverText(Color.white, 2f);
+            health.Subscribe(f => textMesh.text = f.ToString("#") + " / " + initialHealth).AddTo(this);
+        }
     }
 
     public float HealthAmount
@@ -34,11 +34,7 @@ public class Durability : MonoBehaviour {
                 {
                     health.Value = 0f;
                     isBroken = true;
-                    if (onBreak != null)
-                    {
-                        onBreak.OnCompleted();
-                        health.Dispose();
-                    }
+                    health.Dispose();
                 }
                 else
                 {
