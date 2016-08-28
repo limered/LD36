@@ -19,16 +19,19 @@ public class SchabeRandomWalk : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         targetTimeNoise = Random.Range(-1.0f, 1.0f);
         setTarget();
+    }
 
+    void Start()
+    {
         GetComponent<Fuel>()
             .OnFuelAmountChanges()
             .Skip(1)
             .Take(1)
             .Subscribe(f =>
-        {
-            maxSpeed = 300;
-            maxForce = 30;
-        }).AddTo(this);
+            {
+                maxSpeed = 300;
+                maxForce = 30;
+            }).AddTo(this);
     }
 
     // Update is called once per frame
