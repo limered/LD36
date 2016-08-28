@@ -13,7 +13,7 @@ public class ReplaceWhenBurned : MonoBehaviour
     void Start()
     {
         fuel = GetComponent<Fuel>();
-        fuel.OnCompletlyBurned().DoOnCompleted(Replace).Subscribe().AddTo(this);
+        fuel.OnFuelAmountChanges().DoOnCompleted(Replace).Subscribe().AddTo(this);
     }
 
     private void Replace()

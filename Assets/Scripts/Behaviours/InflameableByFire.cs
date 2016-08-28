@@ -27,8 +27,6 @@ public class InflameableByFire : MonoBehaviour
     {
         if (!burningStatusDisposable.Any() && !GetComponent<IsBurning>())
         {
-            Debug.Log("start burning");
-
             gameObject.AddComponent<IsBurning>()
                 .OnDestroyAsObservable()
                 .Subscribe(x => burningStatusDisposable.Clear())

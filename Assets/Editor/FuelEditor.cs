@@ -5,7 +5,6 @@ using UnityEditor;
 [CustomEditor(typeof(Fuel))]
 public class FuelEditor : Editor
 {
-
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();

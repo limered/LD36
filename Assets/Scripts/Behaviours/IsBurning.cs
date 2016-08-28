@@ -17,7 +17,7 @@ public class IsBurning : MonoBehaviour
         fireBounds = GetComponent<FireBounds>();
 
         fuel = GetComponent<Fuel>();
-        fuel.OnCompletlyBurned().DoOnCompleted(Extinct).Subscribe().AddTo(this);
+        fuel.OnFuelAmountChanges().DoOnCompleted(Extinct).Subscribe().AddTo(this);
 
         fireParticles = Instantiate(CachedFireParticle, transform) as GameObject;
         fireParticles.transform.localScale = Vector3.one;
@@ -28,7 +28,7 @@ public class IsBurning : MonoBehaviour
 
         if (fireBounds)
         {
-            fireParticles.transform.localScale = fireBounds.bounds.extents.magnitude * Vector3.one;
+            fireParticles.transform.localScale = fireBounds.bounds.extents.Max() * Vector3.one * 0.5f;
             fireHitbox.center = Vector3.Scale(fireBounds.bounds.center, new Vector3(1f / fireParticles.transform.localScale.x, 1f / fireParticles.transform.localScale.y, 1f / fireParticles.transform.localScale.z));
             fireHitbox.size = Vector3.Scale(fireBounds.bounds.size, new Vector3(1f / fireParticles.transform.localScale.x, 1f/fireParticles.transform.localScale.y, 1f / fireParticles.transform.localScale.z));
         }
