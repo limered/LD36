@@ -1,12 +1,11 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
-using System.Linq;
+using UniRx;
 
 [RequireComponent(typeof(Fuel))]
 public class IsBurning : MonoBehaviour
 {
-    public const string fireParticleSystemPrefabPath = "Prefabs/Particles/Fire_01";
+    public const string fireParticlesPrefabPath = "Prefabs/Particles/Fire_01";
     private static GameObject fireParticleCache;
 
     private Fuel fuel;
@@ -15,6 +14,7 @@ public class IsBurning : MonoBehaviour
     void Start()
     {
         fuel = GetComponent<Fuel>();
+        fuel.OnCompletlyBurned().DoOnCompleted(Extinct).Subscribe().AddTo(this);
 
         fireParticles = Instantiate(CachedFireParticle, transform) as GameObject;
         fireParticles.transform.localScale = Vector3.one;
@@ -34,13 +34,13 @@ public class IsBurning : MonoBehaviour
 
     void Update()
     {
-        fuel.fuel = Mathf.Clamp(fuel.fuel - Time.deltaTime*fuel.burnFuelPerSecond, 0f, float.PositiveInfinity);
-        
-        if (fuel.fuel <= 0f)
-        {
-            Destroy(fireParticles);
-            Destroy(this);
-        }
+        fuel.FuelAmount = Mathf.Clamp(fuel.FuelAmount - Time.deltaTime*fuel.burnFuelPerSecond, 0f, float.PositiveInfinity);
+    }
+
+    private void Extinct()
+    {
+        Destroy(fireParticles);
+        Destroy(this);
     }
 
     private static GameObject CachedFireParticle
@@ -48,9 +48,9 @@ public class IsBurning : MonoBehaviour
         get
         {
             var particles = fireParticleCache ??
-                            (fireParticleCache = Resources.Load<GameObject>(fireParticleSystemPrefabPath));
+                            (fireParticleCache = Resources.Load<GameObject>(fireParticlesPrefabPath));
 
-            if (!particles) throw new Exception("failed to load resource "+fireParticleSystemPrefabPath);
+            if (!particles) throw new Exception("failed to load resource "+fireParticlesPrefabPath);
 
             return particles;
         }

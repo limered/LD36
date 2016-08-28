@@ -9,11 +9,11 @@ using UniRx.Triggers;
 public class InflameableByFire : MonoBehaviour
 {
     public float timeUntilStartsBurning = 3f;
+    [Range(1, 100)]
     public int minFireCount = 1;
     public bool firesMultiply = false;
     private float timeUnderFire = 0f;
 
-    public int InRangeOfFireCount { get { return onFireBy.Count; } }
     private readonly List<Collider> onFireBy = new List<Collider>();
     private int fireLayer;
     private readonly CompositeDisposable burningStatusDisposable = new CompositeDisposable();
