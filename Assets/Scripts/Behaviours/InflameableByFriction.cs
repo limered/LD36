@@ -44,6 +44,7 @@ public class InflameableByFriction : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (!collision.gameObject.GetComponent<InflameableByFriction>()) return;
         var dot = Mathf.Clamp01(Mathf.Abs(Vector3.Dot(lastFriction.normalized, collision.relativeVelocity.normalized)));
         currentHeat += Mathf.Clamp(collision.relativeVelocity.magnitude * (1f-dot) * frictionHeatMultiplier, 0f, frictionHeatToStartBurning/20f);
         lastFriction = collision.relativeVelocity;
