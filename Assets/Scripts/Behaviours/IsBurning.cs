@@ -17,7 +17,7 @@ public class IsBurning : MonoBehaviour
         fireBounds = GetComponent<FireBounds>();
 
         fuel = GetComponent<Fuel>();
-        fuel.OnCompletlyBurned().DoOnCompleted(Extinct).Subscribe().AddTo(this);
+        fuel.OnFuelAmountChanges().DoOnCompleted(Extinct).Subscribe().AddTo(this);
 
         fireParticles = Instantiate(CachedFireParticle, transform) as GameObject;
         fireParticles.transform.localScale = Vector3.one;
