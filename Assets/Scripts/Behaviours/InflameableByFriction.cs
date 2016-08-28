@@ -15,12 +15,7 @@ public class InflameableByFriction : MonoBehaviour
     private Vector3 lastFriction;
 
     private readonly CompositeDisposable burningStatusDisposable = new CompositeDisposable();
-
-    void Start()
-    {
-
-    }
-
+    
     private void StartBurning()
     {
         if (!burningStatusDisposable.Any() && !GetComponent<IsBurning>())
@@ -45,8 +40,6 @@ public class InflameableByFriction : MonoBehaviour
                 StartBurning();
             }
         }
-
-        
     }
 
     public void OnCollisionEnter(Collision collision)

@@ -39,6 +39,7 @@ public class Fuel : MonoBehaviour
                     if (onCompletlyBurned != null)
                     {
                         onCompletlyBurned.OnCompleted();
+                        fuel.Dispose();
                     }
                 }
                 else

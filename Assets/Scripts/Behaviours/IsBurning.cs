@@ -9,10 +9,13 @@ public class IsBurning : MonoBehaviour
     private static GameObject fireParticleCache;
 
     private Fuel fuel;
+    private FireBounds fireBounds;
     private GameObject fireParticles;
 
     void Start()
     {
+        fireBounds = GetComponent<FireBounds>();
+
         fuel = GetComponent<Fuel>();
         fuel.OnCompletlyBurned().DoOnCompleted(Extinct).Subscribe().AddTo(this);
 
@@ -22,14 +25,24 @@ public class IsBurning : MonoBehaviour
         fireParticles.transform.localRotation = Quaternion.identity;
 
         var fireHitbox = fireParticles.GetComponentInChildren<BoxCollider>();
-        var bounds = new Bounds(transform.position, Vector3.zero);
-        var renderers = GetComponentsInChildren<Renderer>();
-        foreach (var r in renderers)
-        {
-            if(!(r is ParticleSystemRenderer)) bounds.Encapsulate(r.bounds);
-        }
 
-        fireHitbox.size = bounds.extents * 1.1f;
+        if (fireBounds)
+        {
+            fireParticles.transform.localScale = fireBounds.bounds.extents.magnitude * Vector3.one;
+            fireHitbox.center = Vector3.Scale(fireBounds.bounds.center, new Vector3(1f / fireParticles.transform.localScale.x, 1f / fireParticles.transform.localScale.y, 1f / fireParticles.transform.localScale.z));
+            fireHitbox.size = Vector3.Scale(fireBounds.bounds.size, new Vector3(1f / fireParticles.transform.localScale.x, 1f/fireParticles.transform.localScale.y, 1f / fireParticles.transform.localScale.z));
+        }
+        else
+        {
+            var bounds = new Bounds(transform.position, Vector3.zero);
+            var renderers = GetComponentsInChildren<Renderer>();
+            foreach (var r in renderers)
+            {
+                if (!(r is ParticleSystemRenderer)) bounds.Encapsulate(r.bounds);
+            }
+
+            fireHitbox.size = bounds.extents*1.1f;
+        }
     }
 
     void Update()
