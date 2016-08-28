@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9554f9201f8043442a4b9138f5830379
-timeCreated: 1472379960
+guid: bf7ff17fe1d24d641aad8b3f3bbf961d
+timeCreated: 1472386387
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -32,9 +32,8 @@ ModelImporter:
     100048: Bone.019
     100050: Bone.019_end
     100052: Bone.020
-    100054: hand00
-    100056: hand00_backup
-    100058: //RootNode
+    100054: //RootNode
+    100056: hand01
     400000: Armature
     400002: Bone
     400004: Bone.001
@@ -62,15 +61,11 @@ ModelImporter:
     400048: Bone.019
     400050: Bone.019_end
     400052: Bone.020
-    400054: hand00
-    400056: hand00_backup
-    400058: //RootNode
-    2300000: hand00
-    3300000: hand00
-    4300000: hand00_backup
-    4300002: hand00
+    400054: //RootNode
+    400056: hand01
+    4300000: hand01
     9500000: //RootNode
-    13700000: hand00_backup
+    13700000: hand01
   materials:
     importMaterials: 1
     materialName: 0
