@@ -6,7 +6,7 @@ namespace Assets.Scripts.GameComponents
 {
     public class WristBehaviour : MonoBehaviour
     {
-        private readonly ReactiveProperty<int> _isHolding = new IntReactiveProperty(0);
+        private readonly IntReactiveProperty _isHolding = new IntReactiveProperty(0);
         private Collider _collider;
 
         private void Start()
