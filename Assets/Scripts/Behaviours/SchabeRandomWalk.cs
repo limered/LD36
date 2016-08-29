@@ -30,7 +30,7 @@ public class SchabeRandomWalk : MonoBehaviour
             .Subscribe(f =>
             {
                 maxSpeed = 300;
-                maxForce = 30;
+                maxForce = 150;
             }).AddTo(this);
     }
 
