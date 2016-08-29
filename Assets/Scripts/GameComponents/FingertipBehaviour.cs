@@ -27,7 +27,7 @@ namespace Assets.Scripts.GameComponents
         {
             if (!collision.contacts.Any()) return;
 
-            GrabOntoObject(collision.gameObject);
+            GrabOntoObject(collision.contacts[0].otherCollider.gameObject);
         }
 
         private void GrabOntoObject(GameObject other)
