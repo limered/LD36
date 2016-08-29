@@ -49,14 +49,4 @@ public class InflameableByFriction : MonoBehaviour
         currentHeat += Mathf.Clamp(collision.relativeVelocity.magnitude * (1f-dot) * frictionHeatMultiplier, 0f, frictionHeatToStartBurning/20f);
         lastFriction = collision.relativeVelocity;
     }
-
-    public void OnCollisionStay(Collision collision)
-    {
-
-    }
-
-    public void OnCollisionExit(Collision collision)
-    {
-
-    }
 }

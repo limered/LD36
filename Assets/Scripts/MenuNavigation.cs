@@ -5,7 +5,7 @@ public class MenuNavigation
 {
     public static class MenuScenes
     {
-        public const string Game = "Game";
+        public const string Game = "MainGame";
         public const string Main = "MainMenu";
         public const string Settings = "SettingsMenu";
     }
