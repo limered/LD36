@@ -40,6 +40,9 @@ namespace Assets.Scripts.GameComponents
                     .IsTighten.Value || _currentHoldObject.Value) return;
 
             _currentHoldObject.Value = other;
+            other.OnDestroyAsObservable()
+                .Subscribe(unit => _currentHoldObject.Value = null)
+                .AddTo(other);
 
             var otherGrabbable = other.GetComponent<Grababble>();
             if (otherGrabbable == null) return;

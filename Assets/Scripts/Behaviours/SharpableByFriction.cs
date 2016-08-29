@@ -18,6 +18,8 @@ public class SharpableByFriction : MonoBehaviour
     [Range(1, 100)]
     public int maxSparks = 30;
 
+    public bool debugShowGrindsUntilSharp;
+
     private FloatReactiveProperty grindsLeft;
     private Vector3 lastFriction;
     private bool sharp;
@@ -28,11 +30,11 @@ public class SharpableByFriction : MonoBehaviour
     /// OnNext => grindsLeft changed
     /// OnCompleted => when object is sharp
     /// </summary>
-    public IObservable<float> OnGrindsLeftChanged { get { return grindsLeft;} }
+    public IObservable<float> OnGrindsLeftChanged { get { return grindsLeft; } }
 
     void Start()
     {
-        grindsLeft = new FloatReactiveProperty(grindsUntilSharp);
+        grindsLeft = new FloatReactiveProperty(grindsUntilSharp); 
 
         if (emitSparks)
         {
@@ -42,6 +44,12 @@ public class SharpableByFriction : MonoBehaviour
             sparkParticlesGameObject.transform.localRotation = Quaternion.identity;
             sparkParticles = sparkParticlesGameObject.GetComponent<ParticleSystem>();
         }
+
+        if (debugShowGrindsUntilSharp)
+        {
+            var textMesh = gameObject.AddHoverText(Color.blue, -2f);
+            grindsLeft.Subscribe(f => textMesh.text = f.ToString("#.00") + " / " + grindsUntilSharp).AddTo(this);
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -49,7 +57,7 @@ public class SharpableByFriction : MonoBehaviour
         if (collision.gameObject.GetComponent<Grinder>())
         {
             var dot = Mathf.Clamp01(Mathf.Abs(Vector3.Dot(lastFriction.normalized, collision.relativeVelocity.normalized)));
-            grindsLeft.Value = Mathf.Clamp(grindsLeft.Value - Mathf.Clamp(collision.relativeVelocity.magnitude * (1f- dot), 0f, Mathf.Min(grindsLeft.Value, 1f)), 0, grindsUntilSharp);
+            grindsLeft.Value = Mathf.Clamp(grindsLeft.Value - Mathf.Clamp(collision.relativeVelocity.magnitude * (1f - dot), 0f, Mathf.Min(grindsLeft.Value, 1f)), 0, grindsUntilSharp);
             lastFriction = collision.relativeVelocity;
 
             if (sparkParticlesGameObject)
@@ -61,6 +69,7 @@ public class SharpableByFriction : MonoBehaviour
             if (grindsLeft.Value <= 0f)
             {
                 grindsLeft.Dispose();
+                Replace();
             }
         }
     }
