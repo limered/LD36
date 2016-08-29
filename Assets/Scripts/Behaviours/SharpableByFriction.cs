@@ -18,6 +18,8 @@ public class SharpableByFriction : MonoBehaviour
     [Range(1, 100)]
     public int maxSparks = 30;
 
+    public bool debugShowGrindsUntilSharp;
+
     private FloatReactiveProperty grindsLeft;
     private Vector3 lastFriction;
     private bool sharp;
@@ -32,7 +34,7 @@ public class SharpableByFriction : MonoBehaviour
 
     void Start()
     {
-        grindsLeft = new FloatReactiveProperty(grindsUntilSharp);
+        grindsLeft = new FloatReactiveProperty(grindsUntilSharp); 
 
         if (emitSparks)
         {
@@ -41,6 +43,12 @@ public class SharpableByFriction : MonoBehaviour
             sparkParticlesGameObject.transform.localPosition = Vector3.zero;
             sparkParticlesGameObject.transform.localRotation = Quaternion.identity;
             sparkParticles = sparkParticlesGameObject.GetComponent<ParticleSystem>();
+        }
+
+        if (debugShowGrindsUntilSharp)
+        {
+            var textMesh = gameObject.AddHoverText(Color.blue, -2f);
+            grindsLeft.Subscribe(f => textMesh.text = f.ToString("#.00") + " / " + grindsUntilSharp).AddTo(this);
         }
     }
 
