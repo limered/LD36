@@ -34,7 +34,7 @@ public class SharpableByFriction : MonoBehaviour
 
     void Start()
     {
-        grindsLeft = new FloatReactiveProperty(grindsUntilSharp);
+        grindsLeft = new FloatReactiveProperty(grindsUntilSharp); 
 
         if (emitSparks)
         {

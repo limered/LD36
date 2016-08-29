@@ -7,6 +7,7 @@ public class ReplaceWhenBurned : MonoBehaviour
     [Tooltip("Replaces this gameobject with an instance of this prefab. If no prefab is assigned the gameobject is destroyed.")]
     public GameObject replaceWith;
     public bool stillBurningAfterReplace = true;
+    public GameObject destroyTarget;
 
     private Fuel fuel;
 
@@ -18,7 +19,8 @@ public class ReplaceWhenBurned : MonoBehaviour
 
     private void Replace()
     {
-        Destroy(gameObject);
+        if(destroyTarget) Destroy(destroyTarget);
+        else Destroy(gameObject);
 
         if (replaceWith)
         {
