@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UniRx;
+using UnityEngine;
 
-public class SchabeRandomWalk : MonoBehaviour {
-
+public class SchabeRandomWalk : MonoBehaviour
+{
     public float secondsPerTarget = 2.0f;
     public Vector2 startPoint = new Vector2(0.0f, 0.0f);
     public Vector2 range = new Vector2(100.0f, 100.0f);
@@ -13,20 +13,31 @@ public class SchabeRandomWalk : MonoBehaviour {
     private Vector3 target;
     private Rigidbody rigidBody;
 
-
     // Use this for initialization
-    void Awake ()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
         targetTimeNoise = Random.Range(-1.0f, 1.0f);
         setTarget();
     }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-    {
 
-        if(!ableToWalk())
+    void Start()
+    {
+        GetComponent<Fuel>()
+            .OnFuelAmountChanges()
+            .Skip(1)
+            .Take(1)
+            .Subscribe(f =>
+            {
+                maxSpeed = 300;
+                maxForce = 30;
+            }).AddTo(this);
+    }
+
+    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        if (!ableToWalk())
         {
             return;
         }
@@ -36,7 +47,6 @@ public class SchabeRandomWalk : MonoBehaviour {
         if (t < 0.01)
         {
             setTarget();
-
         }
         else
         {
@@ -61,29 +71,27 @@ public class SchabeRandomWalk : MonoBehaviour {
         {
             setTarget();
         }
-
     }
 
     public void moveToTarget()
     {
         Vector3 direction = (target - transform.position);
         float length = direction.magnitude;
-        if(length < 1.0f)
+        if (length < 1.0f)
         {
             setTarget();
             return;
         }
-        else if(maxSpeed < rigidBody.velocity.magnitude)
+        else if (maxSpeed < rigidBody.velocity.magnitude)
         {
             return;
         }
-
 
         direction = direction / length;
         rigidBody.AddForce(direction * maxForce);
     }
 
-    bool ableToWalk()
+    private bool ableToWalk()
     {
         float result = Vector3.Dot(Vector3.up, transform.rotation * Vector3.up);
 
