@@ -12,12 +12,15 @@ namespace Assets.Scripts.GameComponents
 
         public GameObject FingerBehaviour;
 
+        public ReactiveProperty<bool> HasObject = new ReactiveProperty<bool>(false);
+
         #endregion Public Fields
 
         #region Private Fields
 
-        private GameObject _currentHoldObject;
+        private readonly ReactiveProperty<GameObject> _currentHoldObject = new ReactiveProperty<GameObject>();
         private FixedJoint _currentJoint;
+        private Collider _collider;
 
         #endregion Private Fields
 
@@ -34,9 +37,9 @@ namespace Assets.Scripts.GameComponents
         {
             if (!FingerBehaviour
                     .GetComponent<FingerBehaviour>()
-                    .IsTighten.Value || _currentHoldObject) return;
+                    .IsTighten.Value || _currentHoldObject.Value) return;
 
-            _currentHoldObject = other;
+            _currentHoldObject.Value = other;
 
             var otherGrabbable = other.GetComponent<Grababble>();
             if (otherGrabbable == null) return;
@@ -52,11 +55,13 @@ namespace Assets.Scripts.GameComponents
         {
             Destroy(_currentJoint);
             _currentJoint = null;
-            _currentHoldObject = null;
+            _currentHoldObject.Value = null;
         }
 
         private void Start()
         {
+            _collider = GetComponent<Collider>();
+
             if (FingerBehaviour)
                 FingerBehaviour
                     .GetComponent<FingerBehaviour>()
@@ -69,6 +74,14 @@ namespace Assets.Scripts.GameComponents
             this.OnCollisionEnterAsObservable()
                     .Subscribe(CollisionHandling)
                     .AddTo(this);
+
+            _currentHoldObject
+                .Subscribe(o => HasObject.Value = o != null)
+                .AddTo(this);
+
+            HasObject
+                .Subscribe(b => _collider.enabled = !b)
+                .AddTo(this);
         }
 
         #endregion Private Methods
