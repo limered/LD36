@@ -1,12 +1,17 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR || UNITY_EDITOR_WIN
 using UnityEditor;
+#endif
+using UnityEngine;
 
-public class InspectorExtensions : MonoBehaviour {
+public class EnumFlagsAttribute : PropertyAttribute
+{
+    public EnumFlagsAttribute() { }
+}
 
-    public class EnumFlagsAttribute : PropertyAttribute
-    {
-        public EnumFlagsAttribute() { }
-    }
+#if UNITY_EDITOR || UNITY_EDITOR_WIN
+public class InspectorExtensions : MonoBehaviour
+{
+
 
     [CustomPropertyDrawer(typeof(EnumFlagsAttribute))]
     public class EnumFlagsAttributeDrawer : PropertyDrawer
@@ -17,3 +22,4 @@ public class InspectorExtensions : MonoBehaviour {
         }
     }
 }
+#endif
