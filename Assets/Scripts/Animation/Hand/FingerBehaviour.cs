@@ -5,16 +5,33 @@ namespace Assets.Scripts.Animation.Hand
 {
     public class FingerBehaviour : MonoBehaviour
     {
+        #region Public Fields
 
-        public GameObject TargetTight;
-        public GameObject TargetLoose;
+        public KeyCode Button;
         public BoolReactiveProperty IsTighten = new BoolReactiveProperty(false);
-        public KeyCode ButtonToPress;
-    
-        void Update ()
+        public GameObject TargetLoose;
+        public GameObject TargetTight;
+
+        #endregion Public Fields
+
+        #region Private Methods
+
+        private void Start()
         {
-            IsTighten.Value = ButtonToPress.IsPressed();
-            transform.position = IsTighten.Value ? TargetTight.transform.position : TargetLoose.transform.position;
+            IsTighten
+                .Skip(1)
+                .Subscribe(
+                    b =>
+                        transform.position =
+                            b.Equals(true) ? TargetTight.transform.position : TargetLoose.transform.position)
+                .AddTo(this);
         }
+
+        private void Update()
+        {
+            IsTighten.Value = Button.IsPressed();
+        }
+
+        #endregion Private Methods
     }
 }
