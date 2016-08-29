@@ -18,7 +18,7 @@ public class BreaksWhenHit : MonoBehaviour
     private void Start()
     {
         durability = GetComponent<Durability>();
-        durability.OnBreak().DoOnCompleted(Break).Subscribe().AddTo(this);
+        durability.OnHealthtChanges().DoOnCompleted(Break).Subscribe().AddTo(this);
 
         gameObject.OnCollisionEnterAsObservable()
 

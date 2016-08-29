@@ -5,6 +5,8 @@ public class Fuel : MonoBehaviour
 {
     public float initialFuel = 10f;
     public float burnFuelPerSecond = 1f;
+    public bool debugShowFuel = false;
+
     private FloatReactiveProperty fuel;
     public IObservable<float> OnFuelAmountChanges() { return fuel; }
 
@@ -13,6 +15,15 @@ public class Fuel : MonoBehaviour
     void Awake()
     {
         fuel = new FloatReactiveProperty(initialFuel);
+    }
+
+    void Start()
+    {
+        if (debugShowFuel)
+        {
+            var textMesh = gameObject.AddHoverText(Color.yellow);
+            fuel.Subscribe(f => textMesh.text = f.ToString("#.00") + " / " + initialFuel).AddTo(this);
+        }
     }
 
     public float FuelAmount
