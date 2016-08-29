@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BreaksWhenHit : MonoBehaviour
 {
-    [InspectorExtensions.EnumFlags]
+    [EnumFlags]
     public HitType takeDamageFrom;
 
     [Tooltip("If this is not assigned the Durability of this gameobject is used")]
