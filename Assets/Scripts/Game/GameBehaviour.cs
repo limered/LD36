@@ -23,10 +23,19 @@ namespace Assets.Scripts.Game
         //6
         public BoolReactiveProperty Coocked = new BoolReactiveProperty();
 
+        private AudioSource _audio;
+
         private void Start()
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+
+            _audio = GetComponent<AudioSource>();
+
+            IoC.Resolve<Settings>()
+                .OnMusicChanged
+                .Subscribe(b => _audio.enabled = b)
+                .AddTo(gameObject);
         }
     }
 }
