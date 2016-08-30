@@ -14,5 +14,16 @@ public class ControlHintsBinding : MonoBehaviour
             .Take(1)
             .Subscribe(x => menuNavigation.StartGame())
             .AddTo(this);
+
+        Observable.EveryUpdate()
+            .Where(x => KeyCode.Escape.IsPressed())
+            .Take(1)
+            .Subscribe(x =>
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                menuNavigation.NavigateToMainMenu();
+            })
+            .AddTo(this);
     }
 }
