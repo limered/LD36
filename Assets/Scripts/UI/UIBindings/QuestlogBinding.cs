@@ -30,12 +30,18 @@ public class QuestlogBinding : MonoBehaviour
         game.Coocked.StartWith(false).Subscribe(x => Quest6Toggle.isOn = x).AddTo(this);
 
 
-        Quest1Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x => PlayQuestCompletedSound()).AddTo(this);
+        Quest1Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x =>
+        {
+            gameObject.SetActive(true);
+            PlayQuestCompletedSound();
+        }).AddTo(this);
         Quest2Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x => PlayQuestCompletedSound()).AddTo(this);
         Quest3Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x => PlayQuestCompletedSound()).AddTo(this);
         Quest4Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x => PlayQuestCompletedSound()).AddTo(this);
         Quest5Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x => PlayQuestCompletedSound()).AddTo(this);
         Quest6Toggle.OnValueChangedAsObservable().Where(x => x).Subscribe(x => PlayQuestCompletedSound()).AddTo(this);
+
+        gameObject.SetActive(false);
     }
 
     private void PlayQuestCompletedSound()
