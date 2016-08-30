@@ -46,7 +46,7 @@ public class QuestlogBinding : MonoBehaviour
 
     private void PlayQuestCompletedSound()
     {
-        if (audioSource && questCompletedSound)
+        if (settings.SoundEnabled && audioSource && questCompletedSound)
         {
             audioSource.PlayOneShot(questCompletedSound);
         }
