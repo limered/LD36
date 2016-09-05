@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Systems.FireSystem;
 using UnityEngine;
 
 public static class IoC
@@ -9,6 +10,8 @@ public static class IoC
     {
         RegisterSingleton<Settings>(()=>new Settings());
         RegisterSingleton<MenuNavigation>(() => new MenuNavigation());
+    
+        RegisterSingleton<FireSystem>(GameObject.Find("FireSystem").GetComponent<FireSystem>());
     }
 
     private static Dictionary<Type, object> singletons = new Dictionary<Type, object>();
