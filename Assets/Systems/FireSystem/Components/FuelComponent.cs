@@ -34,11 +34,9 @@ namespace Assets.Systems.FireSystem.Components
             public bool FiresMultiply;
 
             public float TimeUnderFire { get; set; }
-            public int FireLayer { get; set; }
             private List<Collider> _onFireBy = new List<Collider>();
             public List<Collider> OnFireBy { get { return _onFireBy; } }
-            private CompositeDisposable _burningStatusDisposable = new CompositeDisposable();
-            public CompositeDisposable BurningStatusDisposable { get { return _burningStatusDisposable; } }
+            public bool IsTouchingEnoughFire { get { return OnFireBy.Count >= MinFireCount; } }
         }
 
         [System.Serializable]
