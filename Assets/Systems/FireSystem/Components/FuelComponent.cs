@@ -30,7 +30,7 @@ namespace Assets.Systems.FireSystem.Components
             public bool IsActive;
             public float TimeUntilBurning;
             [Range(1, 10)]
-            public int MinFireCount;
+            public int MinFireCount = 1;
             public bool FiresMultiply;
 
             public float TimeUnderFire { get; set; }
